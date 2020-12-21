@@ -1,0 +1,46 @@
+.dialogs {
+    display: grid;
+    grid-template-columns: 4fr 10fr;
+
+}
+
+.dialogsItems {
+    padding-left: 20px;
+    padding-bottom: 20px;
+}
+
+.dialogsItems a.active {
+   /* color: chartreuse;*/
+
+/* Внешний вид кнопки */
+    color: #524E49; /* Цвет текста */
+    background: #fdeaa8; /* Фоновый цвет */
+    padding: 10px; /* Внутренний отступ текста от границ */
+    font-size: 20px; /* Размер текста */
+    border-radius: 5px; /* Закругление уголков */
+    box-shadow: 0px 1px 3px; /* Тень */
+    /* Задаём анимацию (перемещение). Для всех действий (all) Время перемещения (0.8 сек.) Направление перемещения (cubic-bezier(0.165, 0.84, 0.44, 1)) */
+    -webkit-transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+    transition: all 0.8s cubic-bezier(0.165, 0.84, 0.44, 1);
+}
+/* Эффект при наведении */
+.dialogsItems a.active:hover { /* Добавляем псевдокласс :hover */
+    /* Задаём расстояние, на которое сместится кнопка */
+    -webkit-transform: translate(10px);
+    transform: translate(10px);
+    box-shadow: 0 5px 15px rgba(0, 0, 0, 0.5) /* Изменяем тень */
+}
+
+
+
+.dialogsItems.dialog {
+
+}
+
+.messages {
+
+}
+
+.messages.message {
+
+}

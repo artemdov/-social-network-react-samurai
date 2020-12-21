@@ -1,0 +1,10 @@
+
+ sb init - the simplest way to add a Storybook to your project. 
+
+ • Detecting project type. ✓
+
+    There seems to be a Storybook already available in this project.
+    Apply following command to force:
+    
+   sb init [options] -f 
+
