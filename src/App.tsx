@@ -8,7 +8,8 @@ import {Route} from "react-router";
 import {BrowserRouter} from "react-router-dom";
 import Settings from "./components/settings/settings";
 import News from "./components/news/news";
-import {DialogsPageType, ProfilePageType, StoreType} from "./redux/state";
+import {DialogsPageType, ProfilePageType, StoreType} from "./redux/store";
+import {addPostAC} from "./redux/profileReducer";
 
 
 
@@ -28,6 +29,8 @@ const App = (props:PropsType) => {
     let newPostText = props.store._state.ProfilePage.newPostText
     let dispatch = props.store.dispatch.bind(props.store)
     let messageBody = props.store._state.DialogsPage.newMessageBody
+    let addPost = props.store.addPost
+    let updateNewPostText = props.store.updateNewPostText
     return (
         <BrowserRouter>
             <div className="app-wrapper">
@@ -43,6 +46,8 @@ const App = (props:PropsType) => {
                         dispatch={dispatch}/>}/>
                     <Route path='/profile' render={ () =>
                         <Profile
+                            updateNewPostText={updateNewPostText}
+                        addPost={addPost}
                         newPostText={newPostText}
                         posts={posts}
                         dispatch ={dispatch}

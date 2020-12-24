@@ -101,6 +101,8 @@ export type SendMessageACType = ReturnType<typeof SendMessageBodyAC>
 export type AddPostActionType = ReturnType<typeof addPostAC>
 export type updateNewMessageBodyACActionType = ReturnType<typeof updateNewMessageBodyAC>
 export type updateNewPostTextACActionType = ReturnType<typeof updateNewPostTextAC>
+
+
 export type StoreType = {
     _state: StateType
     addPost: (postText: string) => void
@@ -131,6 +133,8 @@ export type MyPostsType = {
     posts: Array<PostsType>
     newPostText: string
     dispatch: (action: ActionsTypes) => void
+    updateNewPostText: (newText: string) => void
+    addPost: (postText: string) => void
 }
 export type ProfilePageType = {
     posts: Array<PostsType>

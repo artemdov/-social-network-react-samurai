@@ -3,20 +3,24 @@ import ReactDOM from 'react-dom';
 import './index.css';
 import App from './App';
 import * as serviceWorker from './serviceWorker';
-import {store} from "./redux/state";
+import {store} from "./redux/redux-store";
+import {StoreType} from "./redux/store";
 
 
-export let RerenderTree = () => {
-    ReactDOM.render(<App store={store}
-                         ProfilePage={store._state.ProfilePage}
+export let RerenderTree = (state: StoreType) => {
+    ReactDOM.render(<App store={state.}
+                         ProfilePage={store.ProfilePage}
                          DialogsPage={store._state.DialogsPage}
                          addPost={store.addPost}
                          updateNewPostText={store.updateNewPostText}/>,  document.getElementById('root'));
 }
 
 
-store.subscribe(RerenderTree)
-RerenderTree()
+store.subscribe(() => {
+    let state = store.getState()
+    RerenderTree(state)
+})
+
 
 
 

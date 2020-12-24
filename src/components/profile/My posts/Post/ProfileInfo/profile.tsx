@@ -1,12 +1,11 @@
 import React from "react";
 import s from './profile.module.css';
 import MyPosts from "../../Myposts";
-import {MyPostsType} from "../../../../../redux/state";
+import {MyPostsType} from "../../../../../redux/store";
+import MyPostsContainer from "../../MypostsContainer";
 
 
-
-
-const Profile = (props:MyPostsType) => {
+const Profile = (props: MyPostsType) => {
     return <div className={s.content}>
         <div>
             <img
@@ -16,9 +15,11 @@ const Profile = (props:MyPostsType) => {
             Ava
         </div>
 
-        <MyPosts posts={props.posts}
+        <MyPostsContainer posts={props.posts}
                  newPostText={props.newPostText}
-                 dispatch={props.dispatch}       />
+                 dispatch={props.dispatch}
+                 updateNewPostText={props.updateNewPostText}
+                 addPost={props.addPost}/>
     </div>
 
 }

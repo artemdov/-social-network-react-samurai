@@ -1,6 +1,8 @@
-import dialogsReducer from "./dialogsReducer";
+let initialState = {
+}
+export type InitialStateType = typeof initialState
 
-const sidebarReducer = (state: any, action:any) => {
+const sidebarReducer = (state = initialState, action:any): InitialStateType => {
     return state
 }
 
