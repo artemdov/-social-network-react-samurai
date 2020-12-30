@@ -1,8 +1,19 @@
-import profileReducer, {addPostAC, updateNewPostTextAC} from "./profileReducer";
-import dialogsReducer, {SendMessageBodyAC, updateNewMessageBodyAC} from "./dialogsReducer";
+import profileReducer, {
+    addPostAC,
+    addPostACType,
+    ProfileActionsType,
+    updateNewPostTextAC,
+    updateNewPostTextACType
+} from "./profileReducer";
+import dialogsReducer, {
+    DialogsActionsType,
+    SendMessageBodyAC,
+    SendMessageBodyACType,
+    updateNewMessageBodyAC, updateNewMessageBodyACType
+} from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
 
-export let store: StoreType = {
+ let store: StoreType = {
     _state: {
         ProfilePage: {
             posts: [
@@ -32,12 +43,13 @@ export let store: StoreType = {
         },
         SideBar: {}
     },
-    addPost(postText: string) {
+    addPost() {
         let newPost = {
             id: new Date().getTime(),
-            message: postText,
+            message: this._state.ProfilePage.newPostText,
             likesCount: 0
         }
+        this._state.ProfilePage.newPostText = ''
         this._state.ProfilePage.posts.push(newPost)
         this._RerenderTree(this._state)
     },
@@ -52,11 +64,12 @@ export let store: StoreType = {
         this._state.DialogsPage.newMessageBody = newMessage
         this._RerenderTree(this._state)
     },
-    SendMessageBodyAC(messageBody: string) {
+    SendMessageBodyAC() {
         this._state.DialogsPage.messages.push({
             id: 6,
-            message: messageBody
+            message: this._state.DialogsPage.newMessageBody
         })
+        this._state.DialogsPage.newMessageBody = ''
         this._RerenderTree(this._state)
     },
     subscribe(observer) {
@@ -67,10 +80,9 @@ export let store: StoreType = {
     },
     dispatch(action) {
 
-        this._state.ProfilePage = profileReducer(this._state.ProfilePage, action)
+        this._state.ProfilePage = profileReducer(this._state.ProfilePage,action)
         this._state.DialogsPage= dialogsReducer(this._state.DialogsPage, action)
         this._state.SideBar = sidebarReducer(this._state.SideBar, action)
-
         this._RerenderTree(this._state)
 
 
@@ -97,22 +109,23 @@ export let store: StoreType = {
         }*/
     }
 }
-export type SendMessageACType = ReturnType<typeof SendMessageBodyAC>
-export type AddPostActionType = ReturnType<typeof addPostAC>
-export type updateNewMessageBodyACActionType = ReturnType<typeof updateNewMessageBodyAC>
-export type updateNewPostTextACActionType = ReturnType<typeof updateNewPostTextAC>
+// export type SendMessageACType = ReturnType<typeof SendMessageBodyAC>
+// export type AddPostActionType = ReturnType<typeof addPostAC>
+// export type updateNewMessageBodyACActionType = ReturnType<typeof updateNewMessageBodyAC>
+// export type updateNewPostTextACActionType = ReturnType<typeof updateNewPostTextAC>
 
+export type CombineCreatorsType = ProfileActionsType | DialogsActionsType
 
 export type StoreType = {
     _state: StateType
-    addPost: (postText: string) => void
+    addPost: () => void
     _RerenderTree: (_state: StateType) => void
     subscribe: (observer: () => void) => void
     getState: () => StateType
     updateNewPostText: (newText: string) => void
-    SendMessageBodyAC: (messageBody: string) => void
+    SendMessageBodyAC: () => void
     updateNewMessageBodyAC: (newMessage: string ) => void
-    dispatch: (action: ActionsTypes) => void
+    dispatch: (action: CombineCreatorsType)  => void
 
 }
 export type SideBarType = {}
@@ -129,13 +142,15 @@ export type MessagesType = {
     id: number
     message: string
 }
-export type MyPostsType = {
-    posts: Array<PostsType>
-    newPostText: string
-    dispatch: (action: ActionsTypes) => void
-    updateNewPostText: (newText: string) => void
-    addPost: (postText: string) => void
-}
+
+
+// export type MyPostsType = {
+//     posts: Array<PostsType>
+//     newPostText: string
+//     dispatch: (action: ActionsTypes) => void
+//     updateNewPostText: (newText: string) => void
+//     addPost: () => void
+// }
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
@@ -146,22 +161,23 @@ export type DialogsPageType = {
     messages: Array<MessagesType>
     newMessageBody: string
 }
-export type DialogsActionType = {
-    dialogs: Array<DialogsType>
-    messages: Array<MessagesType>
-    newMessageBody: string
-    dispatch: (action: ActionsTypes) => void
-}
+// export type DialogsActionType = {
+//     dialogs: Array<DialogsType>
+//     messages: Array<MessagesType>
+//     newMessageBody: string
+//     SendMessageBodyAC: () => void
+//     updateNewMessageBodyAC: (newMessage: string ) => void
+//     dispatch: (action: ActionsTypes) => void
+//
+// }
 export type StateType = {
     ProfilePage: ProfilePageType
     DialogsPage: DialogsPageType
     SideBar: SideBarType
 }
-export type  ActionsTypes = AddPostActionType
-    | updateNewPostTextACActionType
-    | updateNewMessageBodyACActionType
-    | SendMessageACType
+export type  ActionsTypes = ProfileActionsType | DialogsActionsType
 
+export default store
 
 /*export const addPostAC = (postText: string) => {
     return {

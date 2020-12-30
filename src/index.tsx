@@ -1,25 +1,25 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import './index.css';
-import App from './App';
+import App, {PropsType} from './App';
 import * as serviceWorker from './serviceWorker';
-import {store} from "./redux/redux-store";
-import {StoreType} from "./redux/store";
+import {Provider} from "react-redux";
+import reduxStore from "./redux/redux-store";
+import {BrowserRouter} from "react-router-dom";
 
 
-export let RerenderTree = (state: StoreType) => {
-    ReactDOM.render(<App store={state.}
-                         ProfilePage={store.ProfilePage}
-                         DialogsPage={store._state.DialogsPage}
-                         addPost={store.addPost}
-                         updateNewPostText={store.updateNewPostText}/>,  document.getElementById('root'));
-}
 
 
-store.subscribe(() => {
-    let state = store.getState()
-    RerenderTree(state)
-})
+
+    ReactDOM.render(
+        <BrowserRouter>
+        <Provider store={reduxStore }>
+            <App />
+        </Provider>
+        </BrowserRouter>,  document.getElementById('root')
+    )
+
+
 
 
 
