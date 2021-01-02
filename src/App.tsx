@@ -42,6 +42,7 @@ const App = () => {
                         <Profile />}/>
                     <Route path='/news' render={() => <News />}/>
                     <Route path='/settings' render={() => <Settings />}/>
+                    <Route path='/users' render={() => <div>users</div>}/>
                 </div>
 
             </div>
