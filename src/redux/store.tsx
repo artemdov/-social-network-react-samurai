@@ -1,17 +1,7 @@
-import profileReducer, {
-    addPostAC,
-    addPostACType,
-    ProfileActionsType,
-    updateNewPostTextAC,
-    updateNewPostTextACType
-} from "./profileReducer";
-import dialogsReducer, {
-    DialogsActionsType,
-    SendMessageBodyAC,
-    SendMessageBodyACType,
-    updateNewMessageBodyAC, updateNewMessageBodyACType
-} from "./dialogsReducer";
+import profileReducer, {ProfileActionsType} from "./profileReducer";
+import dialogsReducer, {DialogsActionsType} from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
+import usersReducer, {UsersActionsType} from "./usersReducer";
 
  let store: StoreType = {
     _state: {
@@ -41,7 +31,15 @@ import sidebarReducer from "./sidebarReducer";
             newMessageBody: ''
 
         },
-        SideBar: {}
+        SideBar: {},
+        UsersPage:{
+          users:  [
+{id: 1, photoUrl:"https://go.imgsmail.ru/imgpreview?key=518724a3765b0027&mb=imgdb_preview_exp", followed: false, fullName: 'Dmitry', status: 'I am a Boss', location: {city: 'Minsk', country: 'Belarus'}},
+{id: 2,  photoUrl:'https://go.imgsmail.ru/imgpreview?key=518724a3765b0027&mb=imgdb_preview_exp', followed: true, fullName: 'Tom', status: 'Hello!', location: {city: 'Moscow', country: 'Russia'}},
+{id: 3,  photoUrl:'https://go.imgsmail.ru/imgpreview?key=518724a3765b0027&mb=imgdb_preview_exp', followed: true, fullName: 'Jack', status: 'Hey!', location: {city: 'Kiev', country: 'Ukraine'}}
+]}
+
+
     },
     addPost() {
         let newPost = {
@@ -83,38 +81,12 @@ import sidebarReducer from "./sidebarReducer";
         this._state.ProfilePage = profileReducer(this._state.ProfilePage,action)
         this._state.DialogsPage= dialogsReducer(this._state.DialogsPage, action)
         this._state.SideBar = sidebarReducer(this._state.SideBar, action)
+        this._state.UsersPage = usersReducer(this._state.UsersPage, action)
         this._RerenderTree(this._state)
-
-
-        /*if (action.type === 'ADD-POST') {
-            let newPost = {
-                id: new Date().getTime(),
-                message: action.postText,
-                likesCount: 0
-            }
-            this._state.ProfilePage.posts.push(newPost)
-            this._RerenderTree(this._state)
-        } else if (action.type === 'UPDATE-NEW-POST-TEXT') {
-            this._state.ProfilePage.newPostText = action.newText
-            this._RerenderTree(this._state)
-        } else if (action.type === 'UPDATE-NEW-MESSAGE-BODY') {
-            this._state.DialogsPage.newMessageBody = action.newMessage
-            this._RerenderTree(this._state)
-        } else if (action.type === 'SEND-NEW-MESSAGE') {
-            this._state.DialogsPage.messages.push({
-                id: 6,
-                message: action.messageBody
-            })
-            this._RerenderTree(this._state)
-        }*/
     }
 }
-// export type SendMessageACType = ReturnType<typeof SendMessageBodyAC>
-// export type AddPostActionType = ReturnType<typeof addPostAC>
-// export type updateNewMessageBodyACActionType = ReturnType<typeof updateNewMessageBodyAC>
-// export type updateNewPostTextACActionType = ReturnType<typeof updateNewPostTextAC>
 
-export type CombineCreatorsType = ProfileActionsType | DialogsActionsType
+export type CombineCreatorsType = ProfileActionsType | DialogsActionsType | UsersActionsType
 
 export type StoreType = {
     _state: StateType
@@ -128,6 +100,7 @@ export type StoreType = {
     dispatch: (action: CombineCreatorsType)  => void
 
 }
+
 export type SideBarType = {}
 export type PostsType = {
     id: number
@@ -142,66 +115,40 @@ export type MessagesType = {
     id: number
     message: string
 }
-
-
-// export type MyPostsType = {
-//     posts: Array<PostsType>
-//     newPostText: string
-//     dispatch: (action: ActionsTypes) => void
-//     updateNewPostText: (newText: string) => void
-//     addPost: () => void
-// }
 export type ProfilePageType = {
     posts: Array<PostsType>
     newPostText: string
-
 }
 export type DialogsPageType = {
     dialogs: Array<DialogsType>
     messages: Array<MessagesType>
     newMessageBody: string
 }
-// export type DialogsActionType = {
-//     dialogs: Array<DialogsType>
-//     messages: Array<MessagesType>
-//     newMessageBody: string
-//     SendMessageBodyAC: () => void
-//     updateNewMessageBodyAC: (newMessage: string ) => void
-//     dispatch: (action: ActionsTypes) => void
-//
-// }
+export type UsersPageType = {
+     users: Array<UsersType>
+ }
+export type UsersType = {
+    id: number
+    photoUrl: string
+    followed: boolean
+    fullName: string
+    status: string
+    location: locationType
+}
+export type locationType = {
+     city: string
+    country: string
+}
+
 export type StateType = {
     ProfilePage: ProfilePageType
     DialogsPage: DialogsPageType
     SideBar: SideBarType
+    UsersPage: UsersPageType
 }
-export type  ActionsTypes = ProfileActionsType | DialogsActionsType
+export type  ActionsTypes = ProfileActionsType | DialogsActionsType | UsersPageType
 
 export default store
 
-/*export const addPostAC = (postText: string) => {
-    return {
-        type: 'ADD-POST',
-        postText: postText
-    } as const
-}
-export const updateNewPostTextAC = (newText: string) => {
-    return {
-        type: 'UPDATE-NEW-POST-TEXT',
-        newText: newText
-    } as const
-}*/
-/*export const updateNewMessageBodyAC = (newMessage: string) => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-BODY',
-        newMessage: newMessage
-    } as const
-}
-export const SendMessageBodyAC = (messageBody: string) => {
-    return {
-        type: 'SEND-NEW-MESSAGE',
-        messageBody: messageBody
-    } as const
-}*/
 
 

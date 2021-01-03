@@ -8,6 +8,8 @@ import Settings from "./components/settings/settings";
 import News from "./components/news/news";
 import store, {DialogsPageType, ProfilePageType, StoreType} from "./redux/store";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
+import {Users} from './components/users/users'
+import UsersContainer from "./components/users/usersContainer";
 
 
 
@@ -42,7 +44,7 @@ const App = () => {
                         <Profile />}/>
                     <Route path='/news' render={() => <News />}/>
                     <Route path='/settings' render={() => <Settings />}/>
-                    <Route path='/users' render={() => <div>users</div>}/>
+                    <Route path='/users' render={() => <UsersContainer />}/>
                 </div>
 
             </div>
