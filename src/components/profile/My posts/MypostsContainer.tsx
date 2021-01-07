@@ -1,48 +1,17 @@
 import React from "react";
-import {StateType, StoreType} from "../../../redux/store";
+import {CombineCreatorsType} from "../../../redux/store";
 import {addPostAC, updateNewPostTextAC} from "../../../redux/profileReducer";
 import MyPosts from "./Myposts";
 import {connect} from "react-redux";
+import {ReduxStore} from "../../../redux/redux-store";
 
-/*export type MyPostsContainerType = {
-    store: StoreType
-}
-const MyPostsContainer = (props: MyPostsContainerType) => {
-
-    return (
-        <StoreContext.Consumer>
-            {
-                store => {
-                    let state = props.store.getState()
-
-                    const addPost = () => {
-                        store.dispatch(addPostAC())
-                    }
-                    let onPostChange = (text: string) => {
-                        let action = updateNewPostTextAC(text)
-                        store.dispatch(action)
-                    }
-
-                    return <MyPosts newPostText={state.ProfilePage.newPostText}
-                                    updateNewPostText={onPostChange}
-                                    addPost={addPost}
-                                    posts={state.ProfilePage.posts}/>
-                }
-            }
-        </StoreContext.Consumer>
-    )
-
-}*/
-
-    let mapStateToProps = (state: StateType) => {
-        debugger
+    let mapStateToProps = (state: ReduxStore) => {
        return {
-
-           posts: state.ProfilePage.posts,
-           newPostText: state.ProfilePage.newPostText
+           posts: state.profileReducer.posts,
+           newPostText: state.profileReducer.newPostText
        }
     }
-    let mapDispatchToProps = (dispatch: any) => {
+    let mapDispatchToProps = (dispatch: (action: CombineCreatorsType) => void) => {
         return {
             addPost: () => {
                 dispatch(addPostAC())

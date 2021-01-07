@@ -20,6 +20,7 @@ export type ProfileActionsType = addPostACType | updateNewPostTextACType
 const profileReducer = (state = initialState, action: CombineCreatorsType): InitialStateType => {
 
     switch (action.type) {
+
         case 'ADD-POST': {
             let newPost = {
                 id: new Date().getTime(),
