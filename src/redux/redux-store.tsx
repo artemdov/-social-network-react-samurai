@@ -12,4 +12,7 @@ let reducers = combineReducers({profileReducer: profileReducer,
 })
 
 let reduxStore = createStore(reducers);
+
+export type ReduxStore = ReturnType<typeof reducers>
+
 export default reduxStore

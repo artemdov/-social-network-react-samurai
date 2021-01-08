@@ -3,7 +3,7 @@ import dialogsReducer, {DialogsActionsType} from "./dialogsReducer";
 import sidebarReducer from "./sidebarReducer";
 import usersReducer, {UsersActionsType} from "./usersReducer";
 
- let store: StoreType = {
+/* let store: StoreType = {
     _state: {
         ProfilePage: {
             posts: [
@@ -84,10 +84,9 @@ import usersReducer, {UsersActionsType} from "./usersReducer";
         this._state.UsersPage = usersReducer(this._state.UsersPage, action)
         this._RerenderTree(this._state)
     }
-}
+}*/
 
 export type CombineCreatorsType = ProfileActionsType | DialogsActionsType | UsersActionsType
-
 export type StoreType = {
     _state: StateType
     addPost: () => void
@@ -100,7 +99,6 @@ export type StoreType = {
     dispatch: (action: CombineCreatorsType)  => void
 
 }
-
 export type SideBarType = {}
 export type PostsType = {
     id: number
@@ -129,9 +127,9 @@ export type UsersPageType = {
  }
 export type UsersType = {
     id: number
-    photoUrl: string
+    photos: string
     followed: boolean
-    fullName: string
+    name: string
     status: string
     location: locationType
 }
@@ -139,7 +137,6 @@ export type locationType = {
      city: string
     country: string
 }
-
 export type StateType = {
     ProfilePage: ProfilePageType
     DialogsPage: DialogsPageType
@@ -148,7 +145,6 @@ export type StateType = {
 }
 export type  ActionsTypes = ProfileActionsType | DialogsActionsType | UsersPageType
 
-export default store
 
 
 

@@ -16,6 +16,7 @@ const Navbar = () => {
         <NavbarItem title='Message' id='dialogs'/>
         <NavbarItem title='News' id='news'/>
         <NavbarItem title='Settings' id='settings'/>
+        <NavbarItem title='Users' id='users'/>
 
     </nav>
 }

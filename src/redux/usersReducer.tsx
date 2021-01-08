@@ -1,4 +1,5 @@
-import {CombineCreatorsType, UsersType} from "./store";
+import {CombineCreatorsType, UsersPageType, UsersType} from "./store";
+
 
 
 const FOLLOW = 'FOLLOW'
@@ -7,19 +8,16 @@ const SET_USERS = 'SET-USERS'
 
 export type UsersActionsType = followACType | unfollowACType | setUsersACType
 
-let initialState = {
-    users: [
-        {id: 1,
-        photoUrl:"https://go.imgsmail.ru/imgpreview?key=518724a3765b0027&mb=imgdb_preview_exp",  followed: false, fullName: 'Dmitry', status: 'I am a Boss', location: {city: 'Minsk', country: 'Belarus'}},
-        {id: 2,
-        photoUrl:"https://go.imgsmail.ru/imgpreview?key=518724a3765b0027&mb=imgdb_preview_exp", followed: true, fullName: 'Tom', status: 'Hello!', location: {city: 'Moscow', country: 'Russia'}},
-        {id: 3,
-        photoUrl:"https://go.imgsmail.ru/imgpreview?key=518724a3765b0027&mb=imgdb_preview_exp", followed: true, fullName: 'Jack', status: 'Hey!', location: {city: 'Kiev', country: 'Ukraine'}}
-    ]
-}
-export type InitialStateType = typeof initialState
 
-const usersReducer = (state = initialState, action: CombineCreatorsType): InitialStateType => {
+
+let initialState: UsersPageType  = {
+    users: [ ]
+}
+
+
+
+
+const usersReducer = (state:UsersPageType = initialState, action: CombineCreatorsType): UsersPageType => {
 
     switch (action.type) {
         case FOLLOW:
@@ -39,7 +37,7 @@ const usersReducer = (state = initialState, action: CombineCreatorsType): Initia
                 })
             }
         case SET_USERS:{
-            return {...state, users: [...state.users, ...action.users]}
+            return {...state, users: [...state.users, action.users]}
         }
 
         default:
