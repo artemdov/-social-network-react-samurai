@@ -8,7 +8,6 @@ import Settings from "./components/settings/settings";
 import News from "./components/news/news";
 import {DialogsPageType, ProfilePageType, StoreType} from "./redux/store";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
-import {Users} from './components/users/users'
 import UsersContainer from "./components/users/usersContainer";
 
 
