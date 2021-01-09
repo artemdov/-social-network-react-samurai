@@ -4,26 +4,22 @@ import axios from "axios";
 import userPhoto from '../../assets/images/user.png'
 
 
-
 class Users extends React.Component<any, any> {
-
-    constructor(props:any) {
-        super(props)
-        if (this.props.users.length === 0) {
-            axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response =>
-                this.props.setUsers(response.data.items)
-            )
-        }
+    componentDidMount() {
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response =>
+            this.props.setUsers(response.data.items)
+        )
     }
 
 
     render() {
         return <div>
             {
-                this.props.users.map((u: { id: string | number | null | undefined; photos: { small: string | null | undefined; }; followed: any; name: React.ReactNode; status: React.ReactNode; }) => <div key={u.id}>
+                this.props.users.map((u: { id: string | number | null | undefined; photos: { small: string | null | undefined; }; followed: any; name: React.ReactNode; status: React.ReactNode; }) =>
+                    <div key={u.id}>
                 <span>
                    <div>
-                        <img  className={s.usersPhoto} src={u.photos.small != null ? u.photos.small : userPhoto}/>
+                        <img className={s.usersPhoto} src={u.photos.small != null ? u.photos.small : userPhoto}/>
                   </div>
                     <div>
                        {u.followed
@@ -35,15 +31,15 @@ class Users extends React.Component<any, any> {
                            }}>Follow</button>}
                     </div>
                 </span>
-                    <span>
+                        <span>
                     <div>{u.name}</div>
                     <div>{u.status}</div>
                 </span>
-                    <span>
+                        <span>
                     <div>{"u.location.country"}</div>
                     <div>{"u.location.city"}</div>
                 </span>
-                </div>)
+                    </div>)
             }
         </div>
     }
