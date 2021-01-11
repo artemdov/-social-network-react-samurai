@@ -21,7 +21,7 @@ export type setUsersACType = {
 }
 
 let initialState: UsersPageType  = {
-    users: []
+    users: [] as Array<UsersType>
 }
 
 const usersReducer = (state:UsersPageType = initialState, action: CombineCreatorsType): UsersPageType => {

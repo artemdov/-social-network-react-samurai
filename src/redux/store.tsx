@@ -1,6 +1,5 @@
 import profileReducer, {ProfileActionsType} from "./profileReducer";
 import dialogsReducer, {DialogsActionsType} from "./dialogsReducer";
-import sidebarReducer from "./sidebarReducer";
 import usersReducer, {UsersActionsType} from "./usersReducer";
 
 /* let store: StoreType = {
@@ -128,6 +127,7 @@ export type UsersPageType = {
 export type UsersType = {
     id: number
     photos: string
+    small: string | null | undefined
     followed: boolean
     name: string
     status: string
