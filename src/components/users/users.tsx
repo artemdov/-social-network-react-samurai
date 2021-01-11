@@ -2,9 +2,10 @@ import React from 'react'
 import s from './users.module.css'
 import axios from "axios";
 import userPhoto from '../../assets/images/user.png'
+import {UsersPageType, UsersType} from "../../redux/store";
 
 
-class Users extends React.Component<any, any> {
+class Users extends React.Component<UsersPageType> {
     componentDidMount() {
         axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response =>
             this.props.setUsers(response.data.items)
@@ -15,7 +16,7 @@ class Users extends React.Component<any, any> {
     render() {
         return <div>
             {
-                this.props.users.map((u: { id: string | number | null | undefined; photos: { small: string | null | undefined; }; followed: any; name: React.ReactNode; status: React.ReactNode; }) =>
+                this.props.users.map(u =>
                     <div key={u.id}>
                 <span>
                    <div>

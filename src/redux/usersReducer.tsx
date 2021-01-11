@@ -7,15 +7,22 @@ const UNFOLLOW = 'UNFOLLOW'
 const SET_USERS = 'SET-USERS'
 
 export type UsersActionsType = followACType | unfollowACType | setUsersACType
-
-
-
-let initialState: UsersPageType  = {
-    users: [ ]
+export type followACType = {
+    type: typeof FOLLOW,
+    userId: number
+}
+export type unfollowACType = {
+    type: typeof UNFOLLOW,
+    userId: number
+}
+export type setUsersACType = {
+    type: typeof SET_USERS,
+    users: UsersType
 }
 
-
-
+let initialState: UsersPageType  = {
+    users: []
+}
 
 const usersReducer = (state:UsersPageType = initialState, action: CombineCreatorsType): UsersPageType => {
 
@@ -45,29 +52,17 @@ const usersReducer = (state:UsersPageType = initialState, action: CombineCreator
     }
 }
 
-export type followACType = {
-    type: typeof FOLLOW,
-    userId: number
-}
 export const followAC = (userId: number): followACType => {
     return {
         type: FOLLOW,
         userId: userId
     } as const
 }
-export type unfollowACType = {
-    type: typeof UNFOLLOW,
-    userId: number
-}
 export const unfollowAC = (userId: number): unfollowACType => {
     return {
         type: UNFOLLOW,
         userId: userId
     } as const
-}
-export type setUsersACType = {
-    type: typeof SET_USERS,
-    users: UsersType
 }
 export const setUsersAC = (users: UsersType): setUsersACType => {
     return {
