@@ -4,12 +4,25 @@ import axios from "axios";
 import userPhoto from '../../assets/images/user.png'
 ;
 import {Dispatch} from "redux";
+import {UsersType} from "../../redux/store";
 
+type mapStateToPropsType = {
+    users: Array<UsersType>
+}
+type mapDispatchToProps = {
+    follow: (userId: number) => void
+    unFollow: (userId: number) => void
+    setUsers: (users: UsersType[]) => void
 
-class Users extends React.Component<any> {
+}
+class Users extends React.Component <mapStateToPropsType & mapDispatchToProps> {
     componentDidMount() {
-        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response =>
-            this.props.setUsers(response.data.items)
+
+        axios.get('https://social-network.samuraijs.com/api/1.0/users').then(response => {
+                this.props.setUsers(response.data.items)
+
+        }
+
         )
     }
 
@@ -17,7 +30,7 @@ class Users extends React.Component<any> {
     render() {
         return <div>
             {
-                this.props.users.map((u: { id: string | number | null | undefined; photos: { small: string | null | undefined; }; followed: any; name: React.ReactNode; status: React.ReactNode; }) =>
+                this.props.users.map(u =>
                     <div key={u.id}>
                 <span>
                    <div>

@@ -126,8 +126,7 @@ export type UsersPageType = {
  }
 export type UsersType = {
     id: number
-    photos: string
-    small: string | null | undefined
+    photos: { small: string, large: string}
     followed: boolean
     name: string
     status: string

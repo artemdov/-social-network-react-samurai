@@ -17,7 +17,7 @@ export type unfollowACType = {
 }
 export type setUsersACType = {
     type: typeof SET_USERS,
-    users: UsersType
+    users: Array<UsersType>
 }
 
 let initialState: UsersPageType  = {
@@ -44,7 +44,9 @@ const usersReducer = (state:UsersPageType = initialState, action: CombineCreator
                 })
             }
         case SET_USERS:{
-            return {...state, users: [...state.users, action.users]}
+            return {
+                users: action.users.map(u => u)
+            }
         }
 
         default:
@@ -64,7 +66,7 @@ export const unfollowAC = (userId: number): unfollowACType => {
         userId: userId
     } as const
 }
-export const setUsersAC = (users: UsersType): setUsersACType => {
+export const setUsersAC = (users: Array<UsersType>): setUsersACType => {
     return {
         type: SET_USERS,
         users: users
