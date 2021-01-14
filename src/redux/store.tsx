@@ -123,6 +123,9 @@ export type DialogsPageType = {
 }
 export type UsersPageType = {
      users: Array<UsersType>
+    pageSize: number,
+    totalUsersCount: number,
+    currentPage: number
  }
 export type UsersType = {
     id: number
