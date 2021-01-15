@@ -125,7 +125,8 @@ export type UsersPageType = {
      users: Array<UsersType>
     pageSize: number,
     totalUsersCount: number,
-    currentPage: number
+    currentPage: number,
+    isFetching: boolean
  }
 export type UsersType = {
     id: number
