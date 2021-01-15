@@ -124,6 +124,4 @@ export const toggleIsFetching = (isFetching:boolean): toggleIsFetchingACType => 
     } as const
 }
 
-
-
 export default usersReducer

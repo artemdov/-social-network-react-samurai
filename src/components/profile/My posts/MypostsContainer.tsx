@@ -1,6 +1,6 @@
 import React from "react";
 import {CombineCreatorsType} from "../../../redux/store";
-import {addPostAC, updateNewPostTextAC} from "../../../redux/profileReducer";
+import {addPost, updateNewPostText} from "../../../redux/profileReducer";
 import MyPosts from "./Myposts";
 import {connect} from "react-redux";
 import {ReduxStore} from "../../../redux/redux-store";
@@ -15,10 +15,10 @@ import {Dispatch} from "redux";
     let mapDispatchToProps = (dispatch: Dispatch) => {
         return {
             addPost: () => {
-                dispatch(addPostAC())
+                dispatch(addPost())
             },
             updateNewPostText: (text: string) => {
-                let action = updateNewPostTextAC(text)
+                let action = updateNewPostText(text)
                 dispatch(action)
         }
     }

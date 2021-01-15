@@ -1,7 +1,8 @@
 import React from 'react'
 import s from './users.module.css'
 import userPhoto from '../../assets/images/user.png'
-import {UsersType} from "../../redux/store";
+import {UsersType} from "../../redux/store"
+import {NavLink} from "react-router-dom";
 
 type  UsersPureFunctionType = {
     users: Array<UsersType>
@@ -36,7 +37,9 @@ let Users = (props:UsersPureFunctionType) => {
                 <div key={u.id}>
                 <span>
                    <div>
-                        <img className={s.usersPhoto} src={u.photos.small != null ? u.photos.small : userPhoto}/>
+                       <NavLink to={'/profile/' + u.id}>
+                           <img className={s.usersPhoto} src={u.photos.small != null ? u.photos.small : userPhoto}/>
+                        </NavLink>
                   </div>
                     <div>
                        {u.followed

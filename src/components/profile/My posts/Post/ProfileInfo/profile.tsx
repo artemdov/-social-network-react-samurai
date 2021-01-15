@@ -1,18 +1,19 @@
 import React from "react";
 import s from './profile.module.css';
 import MyPostsContainer from "../../MypostsContainer";
+import ProfileInfo from "./profileInfo";
 
+type ProfilePureFunctionType = {
+    profile: null
+}
 
-const Profile = () => {
-    return <div className={s.content}>
+const Profile = (props: ProfilePureFunctionType) => {
+    return (
         <div>
-            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRh0GZaLs7O6zEDPiY4zVVOiGmb2dxEXj4fDQ&usqp=CAU"/>
+            <ProfileInfo profile={props.profile}/>
+            <MyPostsContainer/>
         </div>
-        <div className={s.profileBlock}>
-            Ava
-        </div>
-        <MyPostsContainer />
-    </div>
+    )
 
 }
 export default Profile
