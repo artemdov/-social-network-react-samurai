@@ -1,6 +1,7 @@
 import profileReducer, {ProfileActionsType} from "./profileReducer";
 import dialogsReducer, {DialogsActionsType} from "./dialogsReducer";
 import usersReducer, {UsersActionsType} from "./usersReducer";
+import {setUserDataACType} from "./auth-reducer";
 
 /* let store: StoreType = {
     _state: {
@@ -85,7 +86,8 @@ import usersReducer, {UsersActionsType} from "./usersReducer";
     }
 }*/
 
-export type CombineCreatorsType = ProfileActionsType | DialogsActionsType | UsersActionsType
+export type CombineCreatorsType = ProfileActionsType
+    | DialogsActionsType | UsersActionsType | setUserDataACType
 export type StoreType = {
     _state: StateType
     addPost: () => void

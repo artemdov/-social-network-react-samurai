@@ -1,6 +1,5 @@
 import React from 'react';
 import './App.css';
-import Header from "./components/header/header";
 import Navbar from "./components/navbar/navbar";
 import {Route} from "react-router";
 import Settings from "./components/settings/settings";
@@ -9,6 +8,7 @@ import {DialogsPageType, ProfilePageType, StoreType} from "./redux/store";
 import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/users/usersContainer";
 import ProfileContainer from "./components/profile/My posts/Post/ProfileInfo/profileContainer";
+import HeaderContainer from "./components/header/headerContainer";
 
 
 export type PropsType = {
@@ -21,7 +21,7 @@ export type PropsType = {
 const App = () => {
     return (
         <div className="app-wrapper">
-            <Header/>
+            <HeaderContainer/>
             <Navbar/>
             <div className="app-wrapper-content">
                 <Route path='/dialogs' render={() =>
