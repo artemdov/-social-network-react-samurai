@@ -17,7 +17,7 @@ export type mapDispatchToPropsType = {
 class HeaderContainer extends React.Component <mapStateToPropsType & mapDispatchToPropsType> {
     componentDidMount() {
         axios.get(`https://social-network.samuraijs.com/api/1.0/auth/me`, {
-            withCredentials: true
+            withCredentials: true //authorization
         }).then(response => {
                 if (response.data.resultCode === 0) {
                     const {id, email, login} = response.data.data
