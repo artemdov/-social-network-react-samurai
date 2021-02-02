@@ -3,7 +3,7 @@ import {CombineCreatorsType} from "./store";
 
 
 const SET_USER_DATA = 'SET_USER_DATA'
-debugger
+
 
 export type SetUserActionsType = setUserDataACType
 
