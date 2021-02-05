@@ -1,4 +1,6 @@
 import {CombineCreatorsType, UsersPageType, UsersType} from "./store";
+import {strict} from "assert";
+import {action} from "@storybook/addon-actions";
 
 
 
@@ -8,10 +10,12 @@ const SET_USERS = 'SET-USERS'
 const SET_CURRENT_PAGE = 'SET-CURRENT-PAGE'
 const SET_TOTAL_USERS_COUNT = 'SET-TOTAL-USERS-COUNT'
 const TOGGLE_IS_FETCHING = 'TOGGLE-IS-FETCHING'
+const TOGGLE_IS_FOLLOWING_PROGRESS = 'TOGGLE_IS_FOLLOWING_PROGRESS'
 
 export type UsersActionsType = followACType | unfollowACType
     | setUsersACType | setCurrentPageACType
     | setTotalUsersCountACType | toggleIsFetchingACType
+    | toggleIsFollowingProgressACType
 
 export type followACType = {
     type: typeof FOLLOW,
@@ -37,13 +41,19 @@ export type toggleIsFetchingACType = {
     type: typeof TOGGLE_IS_FETCHING,
     isFetching: boolean
 }
+export type toggleIsFollowingProgressACType = {
+    type: typeof TOGGLE_IS_FOLLOWING_PROGRESS,
+    isFetching: boolean,
+    userId: number
+}
 
 let initialState: UsersPageType  = {
     users: [] as Array<UsersType>,
     pageSize: 5,
     totalUsersCount: 0,
     currentPage: 1,
-    isFetching: false
+    isFetching: false,
+    followingInProgress: [] as Array<number>
 
 }
 
@@ -78,8 +88,14 @@ const usersReducer = (state = initialState, action: CombineCreatorsType): UsersP
             return {...state, totalUsersCount: action.totalUsersCount}
         }
         case TOGGLE_IS_FETCHING: {
-
             return {...state, isFetching: action.isFetching}
+        }
+        case TOGGLE_IS_FOLLOWING_PROGRESS: {
+
+            return {...state,
+                followingInProgress: action.isFetching ? [...state.followingInProgress, action.userId]
+                                                                    : state.followingInProgress.filter(id => id != action.userId)
+            }
         }
 
         default:
@@ -121,6 +137,13 @@ export const toggleIsFetching = (isFetching:boolean): toggleIsFetchingACType => 
     return {
         type: TOGGLE_IS_FETCHING,
         isFetching: isFetching
+    } as const
+}
+export const toggleIsFollowingProgress = (isFetching:boolean, userId: number): toggleIsFollowingProgressACType => {
+    return {
+        type: TOGGLE_IS_FOLLOWING_PROGRESS,
+        isFetching: isFetching,
+        userId: userId
     } as const
 }
 
