@@ -2,7 +2,7 @@ import {CombineCreatorsType} from "./store";
 
 
 
-const SET_USER_DATA  = 'SET_USER_DATA'
+const SET_USER_DATA = 'SET_USER_DATA'
 
 
 export type SetUserActionsType = setUserDataACType
@@ -15,14 +15,14 @@ export type setUserDataACType = {
         login: string,
     }
 }
-export type SetUserPropsType  = {
+export type SetUserPropsType = {
     id: number,
     email: string,
     login: string,
     isAuth: boolean
 }
 
-let initialState: SetUserPropsType   = {
+let initialState: SetUserPropsType = {
     id: 6 ,
     email: '',
     login: '',
