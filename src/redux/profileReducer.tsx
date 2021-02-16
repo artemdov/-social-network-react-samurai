@@ -1,4 +1,6 @@
 import {CombineCreatorsType} from "./store";
+import {Dispatch} from "redux";
+import {usersAPI} from "../API/api";
 
 const ADD_POST = 'ADD-POST'
 const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
@@ -39,8 +41,9 @@ const profileReducer = (state = initialState, action: CombineCreatorsType): Init
                 message: state.newPostText,
                 likesCount: 0
             }
-            return {...state, posts: [...state.posts, newPost],
-            newPostText: ''
+            return {
+                ...state, posts: [...state.posts, newPost],
+                newPostText: ''
             }
         }
         case UPDATE_NEW_POST_TEXT: {
@@ -55,22 +58,28 @@ const profileReducer = (state = initialState, action: CombineCreatorsType): Init
 }
 
 
-    export const addPost = (): addPostACType => {
-        return {
-            type: ADD_POST
-        } as const
-    }
-    export const updateNewPostText = (newText: string): updateNewPostTextACType => {
-        return {
-            type: UPDATE_NEW_POST_TEXT,
-            newText: newText
-        } as const
-    }
-    export const setUserProfile = (profile: null): setUserProfileACType => {
+export const addPost = (): addPostACType => {
+    return {
+        type: ADD_POST
+    } as const
+}
+export const updateNewPostText = (newText: string): updateNewPostTextACType => {
+    return {
+        type: UPDATE_NEW_POST_TEXT,
+        newText: newText
+    } as const
+}
+export const setUserProfile = (profile: null): setUserProfileACType => {
     return {
         type: SET_USER_PROFILE,
         profile: profile
     } as const
 }
+export const getUsersProfile = (userId: string) => (dispatch: Dispatch) => {
+    usersAPI.getProfile(userId).then(response => {
+            dispatch(setUserProfile(response.data))
+        }
+    )
+}
 
-    export default profileReducer
+export default profileReducer
