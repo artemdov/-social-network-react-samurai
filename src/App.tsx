@@ -9,6 +9,7 @@ import DialogsContainer from "./components/Dialogs/DialogsContainer";
 import UsersContainer from "./components/users/usersContainer";
 import ProfileContainer from "./components/profile/My posts/Post/ProfileInfo/profileContainer";
 import HeaderContainer from "./components/header/headerContainer";
+import Login from "./components/login/Login";
 
 
 export type PropsType = {
@@ -30,7 +31,8 @@ const App = () => {
                     <ProfileContainer  />}/>
                 <Route path='/news' render={() => <News/>}/>
                 <Route path='/settings' render={() => <Settings/>}/>
-                <Route path='/users' render={() => <UsersContainer/>}/>
+                <Route path='/users' render={() => <UsersContainer />}/>
+                <Route path='/login' render={() => <Login />}/>
             </div>
         </div>
 

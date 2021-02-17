@@ -1,5 +1,6 @@
 import {CombineCreatorsType} from "./store";
-
+import {Dispatch} from "redux";
+import {authAPI} from "../API/api";
 
 
 const SET_USER_DATA = 'SET_USER_DATA'
@@ -23,7 +24,7 @@ export type SetUserPropsType = {
 }
 
 let initialState: SetUserPropsType = {
-    id: 6 ,
+    id: 6,
     email: '',
     login: '',
     isAuth: false
@@ -35,7 +36,8 @@ const authReducer = (state = initialState, action: CombineCreatorsType): SetUser
 
     switch (action.type) {
         case SET_USER_DATA:
-            return {...state,
+            return {
+                ...state,
                 ...action.data,
                 isAuth: true
 
@@ -46,7 +48,7 @@ const authReducer = (state = initialState, action: CombineCreatorsType): SetUser
     }
 }
 
-export const setUserData = (id: number, email: string, login:string): setUserDataACType => {
+export const setUserData = (id: number, email: string, login: string): setUserDataACType => {
     return {
         type: SET_USER_DATA,
         data: {
@@ -57,6 +59,17 @@ export const setUserData = (id: number, email: string, login:string): setUserDat
 
     } as const
 }
+export const getAuthUserData = () => (dispatch: Dispatch) => {
+    authAPI.me()
+        .then(response => {
+                if (response.data.resultCode === 0) {
+                    const {id, email, login} = response.data.data
+                    dispatch(setUserData(id, email, login))
+                }
+            }
+        )
+}
+
 
 
 export default authReducer

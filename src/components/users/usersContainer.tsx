@@ -2,17 +2,15 @@ import React from 'react'
 import {connect} from 'react-redux'
 import {UsersType} from '../../redux/store'
 import {
-    followSuccess, getUsers, getUsersThunkCreator,
+    follow,
+    followSuccess, getUsers,
     setCurrentPage,
-    setTotalUsersCount,
-    setUsers,
-    toggleIsFetching, toggleIsFollowingProgress,
+    toggleIsFollowingProgress, unfollow,
     unFollowSuccess
 } from "../../redux/usersReducer";
 import {ReduxStore} from '../../redux/redux-store'
 import Users from './users'
 import Preloader from "../universal/rename/Preloader";
-import {usersAPI} from "../../API/api";
 
 type mapStateToPropsType = {
     users: Array<UsersType>
@@ -20,20 +18,21 @@ type mapStateToPropsType = {
     totalUsersCount: number,
     currentPage: number,
     isFetching: boolean,
-    followingInProgress: number[]
+    followingInProgress: number[],
 }
 type mapDispatchToPropsType = {
     follow: (userId: number) => void
-    unFollow: (userId: number) => void
-    setUsers: (users: UsersType[]) => void
+    unfollow: (userId: number) => void
+    getUsers: (currentPage: number, pageSize: number) => void
     setCurrentPage: (currentPage: number) => void
-    setTotalUsersCount: (totalUsersCount: number) => void
-    toggleIsFetching: (isFetching: boolean) => void
     toggleIsFollowingProgress: (followingInProgress:boolean,userId: number) => void
 
 }
 
-class UsersAPIContainer extends React.Component <mapStateToPropsType & mapDispatchToPropsType> {
+type OwnProps = {
+}
+
+class UsersAPIContainer extends React.Component <mapStateToPropsType & mapDispatchToPropsType & OwnProps> {
     componentDidMount() {
         this.props.getUsers(this.props.currentPage, this.props.pageSize)
         /*this.props.toggleIsFetching(false)
@@ -63,7 +62,7 @@ class UsersAPIContainer extends React.Component <mapStateToPropsType & mapDispat
             <Users followingInProgress={this.props.followingInProgress}
                    currentPage={this.props.currentPage}
                    users={this.props.users}
-                   unFollow={this.props.unFollow}
+                   unFollow={this.props.unfollow}
                    follow={this.props.follow}
                    onPageChanged={this.onPageChanged}
                    pageSize={this.props.pageSize}
@@ -74,7 +73,7 @@ class UsersAPIContainer extends React.Component <mapStateToPropsType & mapDispat
     }
 }
 
-const mapStateToProps = (state: ReduxStore) => {
+const mapStateToProps = (state: ReduxStore): mapStateToPropsType => {
     return {
         users: state.usersReducer.users,
         pageSize: state.usersReducer.pageSize,
@@ -85,10 +84,9 @@ const mapStateToProps = (state: ReduxStore) => {
     }
 }
 
-export default connect(mapStateToProps, {
-
-    follow: followSuccess,
-    unFollow: unFollowSuccess,
+export default connect<mapStateToPropsType, mapDispatchToPropsType, OwnProps, ReduxStore>(mapStateToProps, {
+    follow,
+    unfollow,
     setCurrentPage,
     toggleIsFollowingProgress,
     getUsers
