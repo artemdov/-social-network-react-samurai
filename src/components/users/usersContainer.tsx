@@ -11,6 +11,8 @@ import {
 import {ReduxStore} from '../../redux/redux-store'
 import Users from './users'
 import Preloader from "../universal/rename/Preloader";
+import {compose} from "redux";
+import {withAuthRedirect} from "../../HOC/WithAuthRedirect";
 
 type mapStateToPropsType = {
     users: Array<UsersType>
@@ -83,13 +85,24 @@ const mapStateToProps = (state: ReduxStore): mapStateToPropsType => {
         followingInProgress: state.usersReducer.followingInProgress
     }
 }
+export default compose <React.ComponentType>(
+    withAuthRedirect,
+    connect<mapStateToPropsType, mapDispatchToPropsType, OwnProps, ReduxStore>
+    (mapStateToProps, {
+        follow,
+        unfollow,
+        setCurrentPage,
+        toggleIsFollowingProgress,
+        getUsers
+    })
+)(UsersAPIContainer)
 
-export default connect<mapStateToPropsType, mapDispatchToPropsType, OwnProps, ReduxStore>(mapStateToProps, {
+/*export default withAuthRedirect(connect<mapStateToPropsType, mapDispatchToPropsType, OwnProps, ReduxStore>(mapStateToProps, {
     follow,
     unfollow,
     setCurrentPage,
     toggleIsFollowingProgress,
     getUsers
-})(UsersAPIContainer)
+})(UsersAPIContainer))*/
 
 

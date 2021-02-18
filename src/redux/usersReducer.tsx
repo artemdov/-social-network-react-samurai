@@ -1,6 +1,4 @@
 import {CombineCreatorsType, UsersPageType, UsersType} from "./store";
-import {strict} from "assert";
-import {action} from "@storybook/addon-actions";
 import {Dispatch} from "redux";
 import {usersAPI} from "../API/api";
 

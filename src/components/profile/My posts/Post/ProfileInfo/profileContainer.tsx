@@ -5,6 +5,8 @@ import {ReduxStore} from "../../../../../redux/redux-store";
 import {PostsType} from "../../../../../redux/store";
 import {addPost, getUsersProfile, updateNewPostText} from "../../../../../redux/profileReducer";
 import {withRouter, RouteComponentProps, Redirect} from "react-router-dom";
+import {withAuthRedirect} from "../../../../../HOC/WithAuthRedirect";
+import {compose} from "redux";
 
 export type PathParamsType = {
     userId: string
@@ -17,7 +19,7 @@ type mapStateToPropsType = {
     posts: Array<PostsType>
     newPostText: string
     profile: null
-    isAuth: boolean
+
 }
 type mapDispatchToPropsType = {
     addPost: () => void
@@ -30,32 +32,40 @@ class ProfileContainer extends React.Component<PropsType> {
 
     componentDidMount() {
         let userId = this.props.match.params.userId
-        if(!userId) {
+        if (!userId) {
             userId = '2'
         }
-       this.props.getUsersProfile(userId)
+        this.props.getUsersProfile(userId)
     }
 
     render() {
-        if(!this.props.isAuth)  return <Redirect to = {"/login"} />
         return (
-
-            <Profile {...this.props} profile={this.props.profile} />
-
+            <Profile {...this.props} profile={this.props.profile}/>
         )
     }
-
 }
+
+/*let AuthRedirectComponent = (props: PropsType) => {
+    if(!props.isAuth)  return <Redirect to = {"/login"} />
+    return <ProfileContainer {...props} />
+}*/
 
 let mapStateToProps = (state: ReduxStore): mapStateToPropsType => {
     return {
         posts: state.profileReducer.posts,
         newPostText: state.profileReducer.newPostText,
-        profile: state.profileReducer.profile,
-        isAuth: state.authReducer.isAuth
+        profile: state.profileReducer.profile
     }
 }
 
+export default compose <React.ComponentType>(
+    withRouter,
+    connect(mapStateToProps,
+        {getUsersProfile, updateNewPostText, addPost}),
+    withAuthRedirect
+)(ProfileContainer)
+/*
 let withUrlDataContainerComponent = withRouter(ProfileContainer)
-
-export default connect(mapStateToProps, {getUsersProfile, updateNewPostText, addPost})(withUrlDataContainerComponent)
+export default withAuthRedirect(connect(mapStateToProps,
+    {getUsersProfile, updateNewPostText, addPost})(withUrlDataContainerComponent)
+)*/

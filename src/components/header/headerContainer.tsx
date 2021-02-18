@@ -3,6 +3,7 @@ import Header from "./header";
 import {connect} from "react-redux";
 import {getAuthUserData, setUserData} from "../../redux/auth-reducer";
 import store, {ReduxStore} from "../../redux/redux-store";
+import {compose} from "redux";
 
 export type mapStateToPropsType = {
     isAuth: boolean,
@@ -29,4 +30,8 @@ const mapStateToProps = (state: ReduxStore) => {
         login: state.authReducer.login
     }
 }
-export default connect(mapStateToProps, {getAuthUserData})(HeaderContainer)
+export default compose <React.ComponentType> (
+    connect(mapStateToProps, {getAuthUserData})
+) (HeaderContainer)
+/*
+export default connect(mapStateToProps, {getAuthUserData})(HeaderContainer)*/
