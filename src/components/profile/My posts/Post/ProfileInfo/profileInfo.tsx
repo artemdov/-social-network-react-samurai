@@ -2,9 +2,12 @@ import React from "react";
 import s from './profile.module.css';
 import Preloader from "../../../../universal/rename/Preloader";
 import ProfileStatus from "./ProfileStatus";
+import {AnyAction, Dispatch} from "redux";
 
 type ProfileInfoType ={
-    profile: null | { photos: { small: string, large: string } }
+    profile: null | { photos: { small: string, large: string } },
+    status: string,
+    updateStatus: (status: string) => (dispatch: Dispatch<AnyAction>) => void
 }
 
 const ProfileInfo = (props: ProfileInfoType) => {
@@ -19,7 +22,7 @@ const ProfileInfo = (props: ProfileInfoType) => {
         </div>*/}
         <div className={s.profileBlock}>
             <img src={props.profile.photos.large}/>
-           <ProfileStatus status={'Hello'} />
+           <ProfileStatus status={props.status} updateStatus={props.updateStatus} />
         </div>
 
     </div>
