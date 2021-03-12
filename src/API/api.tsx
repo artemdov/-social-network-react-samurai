@@ -1,5 +1,6 @@
 import axios from "axios";
 import {setUserProfile} from "../redux/profileReducer";
+import {setUserData} from "../redux/auth-reducer";
 
 
 const instance = axios.create({
@@ -45,6 +46,12 @@ export const profileAPI = {
 export const authAPI = {
     me() {
        return instance.get(`auth/me`)
+    },
+    login() {
+        return instance.post(`auth/login`)
+    },
+    loginOut() {
+        return instance.delete(`auth/login`)
     }
 }
 

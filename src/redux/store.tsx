@@ -96,8 +96,8 @@ export type StoreType = {
     getState: () => StateType
     updateNewPostText: (newText: string) => void
     SendMessageBodyAC: () => void
-    updateNewMessageBodyAC: (newMessage: string ) => void
-    dispatch: (action: CombineCreatorsType)  => void
+    updateNewMessageBodyAC: (newMessage: string) => void
+    dispatch: (action: CombineCreatorsType) => void
 
 }
 export type SideBarType = {}
@@ -124,23 +124,23 @@ export type DialogsPageType = {
     newMessageBody: string
 }
 export type UsersPageType = {
-     users: Array<UsersType>
+    users: Array<UsersType>
     pageSize: number,
     totalUsersCount: number,
     currentPage: number,
     isFetching: boolean,
     followingInProgress: Array<number>
- }
+}
 export type UsersType = {
     id: number
-    photos: { small: string, large: string}
+    photos: { small: string, large: string }
     followed: boolean
     name: string
     status: string
     location: locationType
 }
 export type locationType = {
-     city: string
+    city: string
     country: string
 }
 export type StateType = {
