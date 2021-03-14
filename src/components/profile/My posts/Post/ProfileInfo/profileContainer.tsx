@@ -7,7 +7,6 @@ import {
     addPost,
     getStatus,
     getUsersProfile,
-    updateNewPostText,
     updateStatus
 } from "../../../../../redux/profileReducer";
 import {withRouter, RouteComponentProps, Redirect} from "react-router-dom";
@@ -68,11 +67,7 @@ let mapStateToProps = (state: ReduxStore): mapStateToPropsType => {
 export default compose <React.ComponentType>(
     withRouter,
     connect(mapStateToProps,
-        {getUsersProfile, updateNewPostText, addPost, getStatus, updateStatus}),
+        {getUsersProfile, addPost, getStatus, updateStatus}),
     withAuthRedirect
 )(ProfileContainer)
-/*
-let withUrlDataContainerComponent = withRouter(ProfileContainer)
-export default withAuthRedirect(connect(mapStateToProps,
-    {getUsersProfile, updateNewPostText, addPost})(withUrlDataContainerComponent)
-)*/
+

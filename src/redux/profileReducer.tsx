@@ -3,7 +3,6 @@ import {Dispatch} from "redux";
 import {profileAPI, usersAPI} from "../API/api";
 
 const ADD_POST = 'ADD-POST'
-const UPDATE_NEW_POST_TEXT = 'UPDATE-NEW-POST-TEXT'
 const SET_USER_PROFILE = 'SET-USER-PROFILE'
 const SET_STATUS = 'SET-STATUS'
 
@@ -21,11 +20,9 @@ let initialState = {
 export type InitialStateType = typeof initialState
 export type addPostACType = {
     type: typeof ADD_POST
+    newPostText: string
 }
-export type updateNewPostTextACType = {
-    type: typeof UPDATE_NEW_POST_TEXT
-    newText: string
-}
+
 export type setUserProfileACType = {
     type: typeof SET_USER_PROFILE
     profile: null
@@ -34,7 +31,7 @@ export type setStatusACType = {
     type: typeof SET_STATUS
     status: string
 }
-export type ProfileActionsType = addPostACType | updateNewPostTextACType | setUserProfileACType | setStatusACType
+export type ProfileActionsType = addPostACType | setUserProfileACType | setStatusACType
 
 
 const profileReducer = (state = initialState, action: CombineCreatorsType): InitialStateType => {
@@ -44,7 +41,7 @@ const profileReducer = (state = initialState, action: CombineCreatorsType): Init
         case ADD_POST: {
             let newPost = {
                 id: new Date().getTime(),
-                message: state.newPostText,
+                message: action.newPostText,
                 likesCount: 0
             }
             return {
@@ -52,9 +49,7 @@ const profileReducer = (state = initialState, action: CombineCreatorsType): Init
                 newPostText: ''
             }
         }
-        case UPDATE_NEW_POST_TEXT: {
-            return {...state, newPostText: action.newText}
-        }
+
         case SET_USER_PROFILE: {
             return {...state, profile: action.profile}
         }
@@ -67,21 +62,17 @@ const profileReducer = (state = initialState, action: CombineCreatorsType): Init
 }
 
 
-export const addPost = (): addPostACType => {
+export const addPost = (newPostText: string): addPostACType => {
     return {
-        type: ADD_POST
+        type: ADD_POST,
+        newPostText
     } as const
 }
-export const updateNewPostText = (newText: string): updateNewPostTextACType => {
-    return {
-        type: UPDATE_NEW_POST_TEXT,
-        newText: newText
-    } as const
-}
+
 export const setUserProfile = (profile: null): setUserProfileACType => {
     return {
         type: SET_USER_PROFILE,
-        profile: profile
+        profile
     } as const
 }
 export const setStatus = (status: string): setStatusACType => {

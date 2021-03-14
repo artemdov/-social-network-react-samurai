@@ -14,7 +14,7 @@ const Profile = (props: ProfilePureFunctionType) => {
     return (
         <div>
             <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
-            <MyPostsContainer/>
+            <MyPostsContainer  newPostText={props.status} updateNewPostText={props.updateStatus}/>
         </div>
     )
 

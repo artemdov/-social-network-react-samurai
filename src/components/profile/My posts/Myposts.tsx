@@ -2,46 +2,54 @@ import React, {ChangeEvent} from "react";
 import s from './Myposts.module.css';
 import Post from "./Post/Post";
 import {PostsType} from "../../../redux/store";
+import {Field, reduxForm} from "redux-form";
+import {maxLengthCreator, required} from "../../../utilits/validators/validators";
+import {TextArea} from "../../universal/Forms/FormsControls";
 
 type MyPostPropsType = {
     posts: Array<PostsType>
     newPostText: string
     updateNewPostText: (newText: string) => void
-    addPost: () => void
+    addPost: (text: string) => void
 }
+
+const maxLength10 =  maxLengthCreator(10)
 
 
 const MyPosts = (props: MyPostPropsType) => {
     let post = props.posts
     let postsElements = post.map(p => <Post message={p.message} likesCount={p.likesCount} id={p.id}/>)
 
-    const OnAddPost = () => {
-        //props.addPost(props.newPostText)
-        // props.dispatch({ type: 'ADD-POST', postText: props.newPostText})
-        props.addPost()
-    }
-    let onPostChange = (e: ChangeEvent<HTMLTextAreaElement>) => {
-        let text = e.currentTarget.value
-        props.updateNewPostText(text)
-        // props.dispatch({ type: 'UPDATE-NEW-POST-TEXT', newText: e.currentTarget.value})
-        // props.dispatch(updateNewPostTextAC(text))
+
+    let onAddPost = (text: any) => {
+        props.addPost(text.newPostText)
     }
 
     return <div className={s.content}>
         <div className={s.postBlock}>
-            My posts
+            <h3>My posts</h3>
         </div>
-        <div>
-            <textarea onChange={onPostChange} value={props.newPostText}/>
-        </div>
-        <div>
-            <button onClick={OnAddPost}>Add post</button>
-        </div>
-
         <div className={s.posts}>
             {postsElements}
         </div>
+        <AddPostTextProfileRedux onSubmit={onAddPost}/>
+
     </div>
 
 }
+const AddPostTextProfile = (props: any) => {
+    return (
+        <form onSubmit={props.handleSubmit}>
+            <div>
+                <Field component={TextArea} name={'newPostText'} placeholder={'Enter your text'} validate={[required, maxLength10]}/>
+            </div>
+            <div>
+                <button>Add post</button>
+            </div>
+        </form>
+    )
+}
+const AddPostTextProfileRedux = reduxForm({form: 'profileAddTextForm'})(AddPostTextProfile)
+
+
 export default MyPosts;

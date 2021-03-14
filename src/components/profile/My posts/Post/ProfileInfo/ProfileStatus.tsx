@@ -1,6 +1,4 @@
 import React, {ChangeEvent} from "react";
-import s from './profile.module.css';
-import Preloader from "../../../../universal/rename/Preloader";
 
 type ProfileStatusType = {
     status: string

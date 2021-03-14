@@ -1,7 +1,6 @@
 import {CombineCreatorsType} from "./store";
 
 const SEND_NEW_MESSAGE = 'SEND-NEW-MESSAGE'
-const UPDATE_NEW_MESSAGE_BODY = 'UPDATE-NEW-MESSAGE-BODY'
 
 let initialState = {
     dialogs: [
@@ -17,53 +16,37 @@ let initialState = {
         {id: 3, message: 'Hyo'},
         {id: 4, message: 'How are you'},
         {id: 5, message: 'Hey'}
-    ],
-    newMessageBody: ''
+    ]
 }
 export type InitialStateType = typeof initialState
 
-export type DialogsActionsType = updateNewMessageBodyACType | SendMessageBodyACType
+export type DialogsActionsType = SendMessageBodyACType
 
 const dialogsReducer = (state: InitialStateType = initialState, action: CombineCreatorsType): InitialStateType => {
 
     switch (action.type) {
-        case 'UPDATE-NEW-MESSAGE-BODY':
-            return {
-                ...state,
-                newMessageBody: action.body
-            }
+
         case 'SEND-NEW-MESSAGE':
             return {
                 ...state,
                 messages: [...state.messages, {
                     id: 6,
-                    message: state.newMessageBody
-                }],
-                newMessageBody: ''
+                    message: action.newMessageBody
+                }]
             }
     }
     return state
 }
 
-export type updateNewMessageBodyACType = {
-    type: typeof UPDATE_NEW_MESSAGE_BODY,
-    body: string
-}
-
-export const updateNewMessageBodyAC = (newMessage: string): updateNewMessageBodyACType => {
-    return {
-        type: 'UPDATE-NEW-MESSAGE-BODY',
-        body: newMessage
-    } as const
-}
-
 export type SendMessageBodyACType = {
-    type: typeof SEND_NEW_MESSAGE
+    type: typeof SEND_NEW_MESSAGE,
+    newMessageBody: string
 }
 
-export const SendMessageBodyAC = (): SendMessageBodyACType => {
+export const SendMessageBodyAC = (newMessageBody: string): SendMessageBodyACType => {
     return {
-        type: 'SEND-NEW-MESSAGE'
+        type: 'SEND-NEW-MESSAGE',
+        newMessageBody
     } as const
 }
 
