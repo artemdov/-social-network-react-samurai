@@ -26,10 +26,10 @@ const Dialogs = (props: DialogsPropsType) => {
 
     let dialogsElements = props.dialogs.map(d => <DialogItem name={d.name} key={d.id} id={d.id}/>);
     let messagesElements = props.messages.map(m => <Message id={m.id} key={m.id} message={m.message}/>);
-    let newMessageBody = props.newMessageBody
+   /* let newMessageBody = props.newMessageBody
     let onNewMessageChange = (e: React.ChangeEvent<HTMLTextAreaElement>) => {
         props.updateNewMessageBodyAC(e.currentTarget.value)
-    }
+    }*/
     let addNewMessage =  (values: any) => {
         props.SendMessageBodyAC(values.newMessageBody)
     }
