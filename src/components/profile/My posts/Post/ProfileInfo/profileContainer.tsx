@@ -14,7 +14,7 @@ import {withAuthRedirect} from "../../../../../HOC/WithAuthRedirect";
 import {compose, Dispatch} from "redux";
 
 export type PathParamsType = {
-    userId: string
+    userId:  any
 }
 type PropsType = RouteComponentProps<PathParamsType> & mapOwnType
 
@@ -25,6 +25,8 @@ type mapStateToPropsType = {
     newPostText: string
     profile: null
     status: string
+    authorizedUserId: number | null
+    isAuth: boolean
 
 }
 type mapDispatchToPropsType = {
@@ -42,7 +44,10 @@ class ProfileContainer extends React.Component<PropsType> {
     componentDidMount() {
         let userId = this.props.match.params.userId
         if (!userId) {
-            userId = '2'
+            userId = this.props.authorizedUserId
+            if (!userId) {
+                this.props.history.push('/login')
+            }
         }
         this.props.getUsersProfile(userId)
         this.props.getStatus(userId)
@@ -60,7 +65,9 @@ let mapStateToProps = (state: ReduxStore): mapStateToPropsType => {
         posts: state.profileReducer.posts,
         newPostText: state.profileReducer.newPostText,
         profile: state.profileReducer.profile,
-        status: state.profileReducer.status
+        status: state.profileReducer.status,
+        authorizedUserId: state.authReducer.userId,
+        isAuth: state.authReducer.isAuth
     }
 }
 

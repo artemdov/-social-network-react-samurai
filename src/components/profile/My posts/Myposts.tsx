@@ -2,18 +2,16 @@ import React, {ChangeEvent} from "react";
 import s from './Myposts.module.css';
 import Post from "./Post/Post";
 import {PostsType} from "../../../redux/store";
-import {Field, reduxForm} from "redux-form";
+import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utilits/validators/validators";
 import {TextArea} from "../../universal/Forms/FormsControls";
+import {FormSubmitHandler, SubmitHandler} from "redux-form/lib/reduxForm";
 
 type MyPostPropsType = {
     posts: Array<PostsType>
-    newPostText: string
-    updateNewPostText: (newText: string) => void
     addPost: (text: string) => void
 }
-
-const maxLength10 =  maxLengthCreator(10)
+const maxLength10 = maxLengthCreator(10)
 
 
 const MyPosts = (props: MyPostPropsType) => {
@@ -37,11 +35,12 @@ const MyPosts = (props: MyPostPropsType) => {
     </div>
 
 }
-const AddPostTextProfile = (props: any) => {
+const AddPostTextProfile: React.FC<InjectedFormProps> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>
             <div>
-                <Field component={TextArea} name={'newPostText'} placeholder={'Enter your text'} validate={[required, maxLength10]}/>
+                <Field component={TextArea} name={'newPostText'} placeholder={'Enter your text'}
+                       validate={[required, maxLength10]}/>
             </div>
             <div>
                 <button>Add post</button>

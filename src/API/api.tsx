@@ -1,6 +1,4 @@
 import axios from "axios";
-import {setUserProfile} from "../redux/profileReducer";
-import {setUserData} from "../redux/auth-reducer";
 
 
 const instance = axios.create({
@@ -11,13 +9,10 @@ const instance = axios.create({
     }
 })
 
-
 export const usersAPI = {
     getUsers(currentPage: number, pageSize: number) {
         return instance.get(`users?page=${currentPage}&count=${pageSize}`)
-            .then(response => {
-                return response.data
-            })
+            .then(response => response.data)
     },
     follow(userId: number) {
         return instance.post(`follow/${userId}`)
@@ -45,12 +40,12 @@ export const profileAPI = {
 }
 export const authAPI = {
     me() {
-       return instance.get(`auth/me`)
+       return instance.get(`auth/me`).then(res => res.data)
     },
-    login() {
-        return instance.post(`auth/login`)
+    login(email: string, password: string, rememberMe: boolean = false) {
+        return instance.post(`auth/login`,{email, password, rememberMe})
     },
-    loginOut() {
+    logout() {
         return instance.delete(`auth/login`)
     }
 }

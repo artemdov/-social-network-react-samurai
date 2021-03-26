@@ -86,7 +86,6 @@ const mapStateToProps = (state: ReduxStore): mapStateToPropsType => {
     }
 }
 export default compose <React.ComponentType>(
-    withAuthRedirect,
     connect<mapStateToPropsType, mapDispatchToPropsType, OwnProps, ReduxStore>
     (mapStateToProps, {
         follow,
@@ -97,12 +96,6 @@ export default compose <React.ComponentType>(
     })
 )(UsersAPIContainer)
 
-/*export default withAuthRedirect(connect<mapStateToPropsType, mapDispatchToPropsType, OwnProps, ReduxStore>(mapStateToProps, {
-    follow,
-    unfollow,
-    setCurrentPage,
-    toggleIsFollowingProgress,
-    getUsers
-})(UsersAPIContainer))*/
+
 
 
