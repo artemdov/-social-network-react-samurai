@@ -1,8 +1,5 @@
 import {CombineCreatorsType} from "./store";
-import {authAPI} from "../API/api";
-import {stopSubmit} from "redux-form";
 import {getAuthUserData, setUserData} from "./auth-reducer";
-import {AnyAction, Dispatch} from "redux";
 
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS'
