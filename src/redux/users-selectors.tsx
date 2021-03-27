@@ -1,10 +1,15 @@
 import React from 'react';
 import {ReduxStore} from "./redux-store";
+import {createSelector} from "reselect";
 
 
 export const getUser = (state: ReduxStore) => {
     return state.usersReducer.users
 }
+export const getUsersSuperSelector = createSelector(getUser,(users) => {
+    return users
+        //reselect-for create more difficult logic than simple selector
+})
 export const getPageSize = (state: ReduxStore) => {
     return state.usersReducer.pageSize
 }
