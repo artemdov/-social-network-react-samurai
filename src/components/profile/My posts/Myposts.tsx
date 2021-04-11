@@ -5,7 +5,7 @@ import {PostsType} from "../../../redux/store";
 import {Field, InjectedFormProps, reduxForm} from "redux-form";
 import {maxLengthCreator, required} from "../../../utilits/validators/validators";
 import {TextArea} from "../../universal/Forms/FormsControls";
-import {FormSubmitHandler, SubmitHandler} from "redux-form/lib/reduxForm";
+
 
 type MyPostPropsType = {
     posts: Array<PostsType>
@@ -14,7 +14,7 @@ type MyPostPropsType = {
 const maxLength10 = maxLengthCreator(10)
 
 
-const MyPosts = (props: MyPostPropsType) => {
+const MyPosts = React.memo((props: MyPostPropsType) => {
     let post = props.posts
     let postsElements = post.map(p => <Post message={p.message} likesCount={p.likesCount} id={p.id}/>)
 
@@ -34,7 +34,8 @@ const MyPosts = (props: MyPostPropsType) => {
 
     </div>
 
-}
+})
+
 const AddPostTextProfile: React.FC<InjectedFormProps> = (props) => {
     return (
         <form onSubmit={props.handleSubmit}>

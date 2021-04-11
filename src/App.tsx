@@ -1,4 +1,4 @@
-import React, {ReactPropTypes} from 'react';
+import React from 'react';
 import './App.css';
 import Navbar from "./components/navbar/navbar";
 import {Route} from "react-router";
