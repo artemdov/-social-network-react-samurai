@@ -19,6 +19,7 @@ type  UsersPureFunctionType = {
 
 let Users = (props: UsersPureFunctionType) => {
 
+    //pagination
     let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
 
     let pages = []
