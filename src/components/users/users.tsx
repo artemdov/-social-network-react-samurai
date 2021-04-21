@@ -3,8 +3,7 @@ import s from './users.module.css'
 import userPhoto from '../../assets/images/user.png'
 import {UsersType} from "../../redux/store"
 import {NavLink} from "react-router-dom";
-import axios from "axios";
-import {usersAPI} from "../../API/api";
+import {Paginator} from "../universal/Paginator/paginator";
 
 type  UsersPureFunctionType = {
     users: Array<UsersType>
@@ -17,26 +16,13 @@ type  UsersPureFunctionType = {
     followingInProgress: Array<number>
 }
 
-let Users = (props: UsersPureFunctionType) => {
-
-    //pagination
-    let pagesCount = Math.ceil(props.totalUsersCount / props.pageSize)
-
-    let pages = []
-    for (let i = 1; i <= pagesCount; i++) {
-        pages.push(i)
-    }
-
+export const Users = (props: UsersPureFunctionType) => {
 
     return <div>
-        <div>
-            {pages.map(p => {
-                return <span className={props.currentPage === p ? s.selectedPage : ''} onClick={(e) => {
-                    props.onPageChanged(p)
-                }}>{p}</span>
-            })}
-
-        </div>
+       <Paginator pageSize={props.pageSize}
+                  totalUsersCount={props.totalUsersCount}
+                  currentPage={props.currentPage}
+                  onPageChanged={props.onPageChanged} />
 
         {
             props.users.map(u =>
