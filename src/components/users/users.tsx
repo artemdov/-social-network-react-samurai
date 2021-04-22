@@ -4,6 +4,8 @@ import userPhoto from '../../assets/images/user.png'
 import {UsersType} from "../../redux/store"
 import {NavLink} from "react-router-dom";
 import {Paginator} from "../universal/Paginator/paginator";
+import {User} from "./user";
+import {follow, toggleIsFollowingProgress, unfollow} from "../../redux/usersReducer";
 
 type  UsersPureFunctionType = {
     users: Array<UsersType>
@@ -25,36 +27,13 @@ export const Users = (props: UsersPureFunctionType) => {
                   onPageChanged={props.onPageChanged} />
 
         {
-            props.users.map(u =>
-                <div key={u.id}>
-                <span>
-                   <div>
-                       <NavLink to={'/profile/' + u.id}>
-                           <img className={s.usersPhoto} src={u.photos.small != null ? u.photos.small : userPhoto}/>
-                        </NavLink>
-                  </div>
-                    <div>
-                       {u.followed
-                           ? <button disabled={props.followingInProgress.some(id => id===u.id)} onClick={() => {props.unFollow(u.id)}}>
-                               Unfollow</button>
-                           : <button disabled={props.followingInProgress.some(id => id===u.id)} onClick={() => {props.follow(u.id)}}>
-                               Follow</button>
-                       }
-                    </div>
-                </span>
-                    <span>
-                    <div>{u.name}</div>
-                    <div>{u.status}</div>
-                </span>
-                    <span>
-                    <div>{"u.location.country"}</div>
-                    <div>{"u.location.city"}</div>
-                </span>
-                </div>)
+            props.users.map(u => <User key={u.id}
+                                       user={u}
+                                       follow={props.follow}
+                                       unFollow={props.unFollow}
+                                       followingInProgress={props.followingInProgress}/>)
         }
-    </div>
-
-
+                </div>
 }
 
 
