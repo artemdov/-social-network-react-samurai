@@ -10,11 +10,11 @@ import UsersContainer from "./components/users/usersContainer";
 import ProfileContainer from "./components/profile/My posts/Post/ProfileInfo/profileContainer";
 import HeaderContainer from "./components/header/headerContainer";
 import Login from "./components/login/Login";
-import {connect} from "react-redux";
+import {connect, Provider} from "react-redux";
 import {compose} from "redux";
-import { withRouter } from 'react-router-dom';
+import {BrowserRouter, withRouter} from 'react-router-dom';
 import {initializeApp} from "./redux/app-reducer";
-import {ReduxStore} from "./redux/redux-store";
+import store, {ReduxStore} from "./redux/redux-store";
 import Preloader from "./components/universal/rename/Preloader";
 
 
@@ -26,11 +26,12 @@ export type PropsType = {
     updateNewPostText: (newText: string) => void
 }
 
- type mapDispatchToPropsType = {
-     initializeApp: () => void
-     initialized: boolean
+type mapDispatchToPropsType = {
+    initializeApp: () => void
+    initialized: boolean
 
 }
+
 class App extends React.Component<mapDispatchToPropsType> {
 
     componentDidMount() {
@@ -38,8 +39,8 @@ class App extends React.Component<mapDispatchToPropsType> {
     }
 
     render() {
-        if(!this.props.initializeApp)
-            return <Preloader />
+        if (!this.props.initializeApp)
+            return <Preloader/>
 
         return (
             <div className="app-wrapper">
@@ -60,10 +61,19 @@ class App extends React.Component<mapDispatchToPropsType> {
         )
     }
 }
+
 const mapStateToProps = (state: ReduxStore) => ({
     initialized: state.app.initialized
 })
 
-export default compose<React.ComponentType>(connect(mapStateToProps,
+export const AppContainer = compose<React.ComponentType>(connect(mapStateToProps,
     {initializeApp}),
     withRouter)(App)
+
+export const AppMain = () => {
+    return <BrowserRouter>
+        <Provider store={store}>
+            <AppContainer />
+        </Provider>
+    </BrowserRouter>
+}
