@@ -66,6 +66,8 @@ class App extends React.Component<mapDispatchToPropsType> {
     }
 }
 
+
+
 const mapStateToProps = (state: ReduxStore) => ({
     initialized: state.app.initialized
 })

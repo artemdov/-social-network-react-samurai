@@ -1,19 +1,26 @@
 import React from "react";
 import MyPostsContainer from "../../MypostsContainer";
-import ProfileInfo from "./profileInfo";
+import ProfileInfo, {UserProfileType} from "./profileInfo";
 import {Dispatch} from "redux";
 
 type ProfilePureFunctionType = {
-    profile: null,
-    status: string,
+    isOwner: boolean
+    profile: UserProfileType | null
+    status: string
     updateStatus: (status: string) => (dispatch: Dispatch) => void
+    savePhoto: (file: File) => void
+
 
 }
 
 const Profile = (props: ProfilePureFunctionType) => {
     return (
         <div>
-            <ProfileInfo profile={props.profile} status={props.status} updateStatus={props.updateStatus}/>
+            <ProfileInfo savePhoto={props.savePhoto}
+                         isOwner={props.isOwner}
+                         profile={props.profile}
+                         status={props.status}
+                         updateStatus={props.updateStatus}/>
             <MyPostsContainer  />
         </div>
     )

@@ -19,7 +19,6 @@ type FormDataType = {
 }
 
 const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, error}) => {
-    debugger
     return (
         <form onSubmit={handleSubmit}>
             <div>
