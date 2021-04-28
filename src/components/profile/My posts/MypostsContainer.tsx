@@ -1,9 +1,9 @@
 import React from "react";
-import {addPost} from "../../../redux/profileReducer";
 import MyPosts from "./Myposts";
 import {connect} from "react-redux";
 import {ReduxStore} from "../../../redux/redux-store";
 import {Dispatch} from "redux";
+import {actions} from "../../../redux/profileReducer";
 
     let mapStateToProps = (state: ReduxStore) => {
        return {
@@ -13,7 +13,7 @@ import {Dispatch} from "redux";
     let mapDispatchToProps = (dispatch: Dispatch) => {
         return {
             addPost: (newPostText: string) => {
-                dispatch(addPost(newPostText))
+                dispatch(actions.addPost(newPostText))
             }
     }
 }

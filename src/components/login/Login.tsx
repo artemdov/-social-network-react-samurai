@@ -29,7 +29,8 @@ const LoginForm: React.FC<InjectedFormProps<FormDataType>> = ({handleSubmit, err
                        component={Input}/>
             </div>
             <div>
-                <Field type={'checkbox'} name={'rememberMe'} component={Input}/> remember me
+                <Field type={'checkbox'} name={'rememberMe'} component={Input}/>
+                remember me
             </div>
             {error && <div className={s.formError}>
                 {error}

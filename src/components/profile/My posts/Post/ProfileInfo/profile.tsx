@@ -9,6 +9,7 @@ type ProfilePureFunctionType = {
     status: string
     updateStatus: (status: string) => (dispatch: Dispatch) => void
     savePhoto: (file: File) => void
+    saveProfile: (profile: UserProfileType) => void
 
 
 }
@@ -16,7 +17,8 @@ type ProfilePureFunctionType = {
 const Profile = (props: ProfilePureFunctionType) => {
     return (
         <div>
-            <ProfileInfo savePhoto={props.savePhoto}
+            <ProfileInfo saveProfile={props.saveProfile}
+                         savePhoto={props.savePhoto}
                          isOwner={props.isOwner}
                          profile={props.profile}
                          status={props.status}

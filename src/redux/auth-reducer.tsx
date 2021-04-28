@@ -11,7 +11,7 @@ export type SetUserDataActionType = {
     type: typeof SET_USER_DATA
     data: { userId: number | null, email: string | null, login: string | null, isAuth: boolean }
 }
-type AuthReducerType = typeof initialState
+export type AuthReducerType = typeof initialState
 
 export type AuthAllActionsType = setUserDataACType | SetUserPropsType
     | SetUserDataActionType | AuthReducerType
