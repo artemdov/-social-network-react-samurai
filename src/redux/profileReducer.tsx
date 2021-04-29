@@ -138,11 +138,11 @@ export const saveProfile = (profile: UserProfileType): ThunkType => async (dispa
         if (userId != null) {
             return dispatch(getUsersProfile(userId))
         }
-
     } else {
         let message = response.data.messages[0]
         dispatch(stopSubmit('edit-profile', {_error: message}))
         return Promise.reject(message)
+
 
     }
 

@@ -36,7 +36,7 @@ type ProfileInfoType = {
     updateStatus: (status: string) => (dispatch: Dispatch<AnyAction>) => void
     isOwner: boolean
     savePhoto: (file: File) => void
-    saveProfile: (profile: UserProfileType) => void
+    saveProfile: any//(profile: UserProfileType) => void
 }
 
 
@@ -53,10 +53,14 @@ const ProfileInfo = (props: ProfileInfoType) => {
             props.savePhoto(e.target.files[0])
         }
     }
-    const onSubmit =  (formData: ProfileFormDataType) => {
-         props.saveProfile(formData)
 
-        //setEditMode(false)
+    const onSubmit = (formData: ProfileFormDataType) => {
+        props.saveProfile(formData).then(
+            ()=>{
+                setEditMode(false)
+            }
+        )
+
     }
 
     return (

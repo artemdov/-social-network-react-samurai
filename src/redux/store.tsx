@@ -1,7 +1,7 @@
 import profileReducer, {ProfileActionsType} from "./profileReducer";
 import dialogsReducer, {DialogsActionsType} from "./dialogsReducer";
 import usersReducer, {UsersActionsType} from "./usersReducer";
-import {setUserDataACType} from "./auth-reducer";
+import {CaptchaUrlActionType, setUserDataACType} from "./auth-reducer";
 import {appInitializedSuccessACType} from "./app-reducer";
 
 /* let store: StoreType = {
@@ -88,7 +88,7 @@ import {appInitializedSuccessACType} from "./app-reducer";
 }*/
 
 export type CombineCreatorsType = ProfileActionsType
-    | DialogsActionsType | UsersActionsType | setUserDataACType | appInitializedSuccessACType
+    | DialogsActionsType | UsersActionsType | setUserDataACType | appInitializedSuccessACType | CaptchaUrlActionType
 export type StoreType = {
     _state: StateType
     addPost: () => void
