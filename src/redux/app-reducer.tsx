@@ -1,5 +1,6 @@
 import {CombineCreatorsType} from "./store";
 import {getAuthUserData, setUserData} from "./auth-reducer";
+import {Simulate} from "react-dom/test-utils";
 
 
 const INITIALIZED_SUCCESS = 'INITIALIZED_SUCCESS'
@@ -9,7 +10,8 @@ export type SetInitializedPropsType = ReturnType<typeof appReducer>
 type AppReducerType = typeof initialState
 
 let initialState = {
-    initialized: false
+    initialized: false,
+    globalError: null
 }
 
 

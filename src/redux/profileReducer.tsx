@@ -120,10 +120,16 @@ export const getStatus = (userId: string): ThunkType => async (dispatch) => {
     dispatch(actions.setStatus(response.data))
 }
 export const updateStatus = (status: string): ThunkType => async (dispatch) => {
-    let response = await profileAPI.updateStatus(status)
-    if (response.data.resultCode === 0) {
-        dispatch(actions.setStatus(status))
+    try{
+        let response = await profileAPI.updateStatus(status)
+        if (response.data.resultCode === 0) {
+            dispatch(actions.setStatus(status))
+        }
+    }catch(error){
+        alert('error')
     }
+
+
 }
 export const savePhoto = (file: File): ThunkType => async (dispatch) => {
     let response = await profileAPI.savePhoto(file)

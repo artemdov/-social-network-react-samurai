@@ -1,7 +1,5 @@
-import profileReducer, {addPost, deletePost} from "./profileReducer";
+import profileReducer, {actions} from "./profileReducer";
 import React from 'react';
-import { render } from '@testing-library/react';
-import App from '../App';
 
 let state = {
 
@@ -17,7 +15,7 @@ let state = {
 
 it('posts should be correct', () => {
 
-    let action = addPost('Good action')
+    let action = actions.addPost('Good action')
 
 
     let newState = profileReducer(state, action)
@@ -29,7 +27,7 @@ it('posts should be correct', () => {
 })
 it('after deleting length of messages should be decrement', () => {
 
-    let action = deletePost(1)
+    let action = actions.deletePost(1)
 
     let newState = profileReducer(state, action)
 
